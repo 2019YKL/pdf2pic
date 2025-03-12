@@ -3,10 +3,11 @@
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import Image from 'next/image'
 
 // 更新导航项，适用于PDF2PIC项目
-const navigation = [
-  { name: '首页', href: '#' },
+const navigation: {name: string, href: string}[] = [
+  // 空数组，无导航项
 ]
 
 export default function Hero() {
@@ -19,26 +20,12 @@ export default function Hero() {
           <div className="flex lg:[flex:1]">
             <a href="#" className="[margin:-1.5rem] [padding:1.5rem]">
               <span className="sr-only">PDF2PIC</span>
-              <div className="bg-blue-600 [padding:0.5rem] rounded-full shadow-sm">
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="24" 
-                  height="24" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  className="text-white"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="9" y1="15" x2="15" y2="15"></line>
-                  <line x1="9" y1="18" x2="15" y2="18"></line>
-                  <line x1="9" y1="12" x2="15" y2="12"></line>
-                </svg>
-              </div>
+              <Image 
+                src="/pdf.svg" 
+                alt="PDF Icon" 
+                width={32} 
+                height={32}
+              />
             </a>
           </div>
           <div className="flex lg:[display:none]">
@@ -60,7 +47,7 @@ export default function Hero() {
           </div>
           <div className="hidden lg:[display:flex] lg:[flex:1] lg:justify-end">
             <a href="/app" className="text-sm font-semibold [line-height:1.5rem] text-gray-900">
-              登录 <span aria-hidden="true">&rarr;</span>
+              首页 <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </nav>
@@ -70,26 +57,12 @@ export default function Hero() {
             <div className="flex items-center justify-between">
               <a href="#" className="[margin:-1.5rem] [padding:1.5rem]">
                 <span className="sr-only">PDF2PIC</span>
-                <div className="bg-blue-600 [padding:0.5rem] rounded-full shadow-sm">
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    width="24" 
-                    height="24" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    className="text-white"
-                  >
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="9" y1="15" x2="15" y2="15"></line>
-                    <line x1="9" y1="18" x2="15" y2="18"></line>
-                    <line x1="9" y1="12" x2="15" y2="12"></line>
-                  </svg>
-                </div>
+                <Image 
+                  src="/pdf.svg" 
+                  alt="PDF Icon" 
+                  width={32} 
+                  height={32}
+                />
               </a>
               <button
                 type="button"
@@ -118,7 +91,7 @@ export default function Hero() {
                     href="/app"
                     className="[margin-inline:-0.75rem] block rounded-lg [padding-inline:0.75rem] [padding-block:0.625rem] text-base font-semibold [line-height:1.75rem] text-gray-900 hover:bg-gray-50"
                   >
-                    登录
+                    首页
                   </a>
                 </div>
               </div>

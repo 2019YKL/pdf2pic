@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -22,10 +24,9 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <span className="font-bold text-xl text-blue-600">PDF2PIC</span>
+              <Image src="/pdf.svg" alt="PDF Icon" width={32} height={32} />
             </div>
           </div>
-          {/* Right side navigation items can be added here if needed in the future */}
         </div>
       </div>
     </header>

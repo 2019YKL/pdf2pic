@@ -70,7 +70,7 @@ const navigation = [
 
 export default function Footer() {
   return (
-    <footer className="bg-white w-full border-t border-gray-200 mt-auto">
+    <footer className="bg-gray-50 w-full mt-auto">
       <div className="mx-auto max-w-7xl p-4 md:flex md:items-center md:justify-between lg:p-6">
         <div className="flex justify-center gap-4 md:order-2">
           {navigation.map((item) => (
@@ -81,7 +81,7 @@ export default function Footer() {
           ))}
         </div>
         <p className="mt-8 text-center text-sm text-gray-600 md:order-1 md:mt-0">
-          &copy; {new Date().getFullYear()} PDF2PIC. 保留所有权利。
+          &copy; 2025 PDF2PIC - PDF转长图工具
         </p>
       </div>
     </footer>
