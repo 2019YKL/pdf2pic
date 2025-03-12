@@ -18,9 +18,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`sticky top-0 z-50 w-full bg-white transition-all [duration:300ms] ${
-      scrolled ? 'shadow-md' : 'shadow-sm'
-    }`}>
+    <header className={`sticky top-0 z-50 w-full transition-all [duration:300ms]`}>
       <nav aria-label="Global" className="flex items-center justify-between [padding:1.5rem] lg:[padding-inline:2rem]">
         <div className="flex lg:[flex:1]">
           <Link href="/" className="[margin:-1.5rem] [padding:1.5rem]">
