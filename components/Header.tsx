@@ -25,11 +25,7 @@ export default function Header() {
               <span className="font-bold text-xl text-blue-600">PDF2PIC</span>
             </div>
           </div>
-          <div className="flex items-center">
-            <div className="bg-blue-600 text-white text-xs font-medium rounded-full px-3 py-1">
-              PDF转长图工具
-            </div>
-          </div>
+          {/* Right side navigation items can be added here if needed in the future */}
         </div>
       </div>
     </header>
