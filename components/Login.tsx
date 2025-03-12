@@ -13,7 +13,7 @@ export default function Login({ onLogin }: LoginProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!password) {
@@ -23,9 +23,9 @@ export default function Login({ onLogin }: LoginProps) {
 
     setIsLoading(true);
     
-    // Simulate a slight delay to show loading state
-    setTimeout(() => {
-      const success = login(password);
+    try {
+      // Call the async login function
+      const success = await login(password);
       
       if (success) {
         onLogin(true);
@@ -33,8 +33,12 @@ export default function Login({ onLogin }: LoginProps) {
         setError('密码错误，请重试');
         setPassword('');
       }
+    } catch (error) {
+      console.error('登录过程中发生错误:', error);
+      setError('登录过程中发生错误，请重试');
+    } finally {
       setIsLoading(false);
-    }, 500);
+    }
   };
 
   return (

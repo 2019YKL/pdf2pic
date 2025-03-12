@@ -4,11 +4,25 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: (password: string) => boolean;
+  login: (password: string) => Promise<boolean>;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// The SHA-256 hash of '123456'
+// Using a constant hash value instead of plaintext password
+const PASSWORD_HASH = '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92';
+
+// Helper function to hash the password using SHA-256
+async function hashPassword(password: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -25,22 +39,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const login = (password: string): boolean => {
-    // 在实际应用中，这里应该有一个安全的密码验证机制
-    // 简化示例，使用硬编码密码
-    const correctPassword = 'pdf2pic';
-    
-    if (password === correctPassword) {
-      try {
+  const login = async (password: string): Promise<boolean> => {
+    try {
+      // Hash the input password and compare with stored hash
+      const hashedPassword = await hashPassword(password);
+      
+      if (hashedPassword === PASSWORD_HASH) {
         localStorage.setItem('pdf2pic-auth', 'authenticated');
         setIsAuthenticated(true);
         return true;
-      } catch (error) {
-        console.error('无法访问localStorage:', error);
-        return false;
       }
+      return false;
+    } catch (error) {
+      console.error('密码验证错误:', error);
+      return false;
     }
-    return false;
   };
 
   const logout = () => {
