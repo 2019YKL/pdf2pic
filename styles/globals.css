@@ -63,24 +63,33 @@ button, a, input, select, textarea, label {
   transition: all 0.2s ease-in-out;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - hidden but functional */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(var(--slate-100), 0.5);
-  border-radius: 4px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(var(--blue-500), 0.5);
-  border-radius: 4px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(var(--blue-600), 0.7);
+  background: transparent;
+}
+
+/* 隐藏Firefox滑动条 */
+* {
+  scrollbar-width: none;
+}
+
+/* 隐藏IE滑动条 */
+* {
+  -ms-overflow-style: none;
 }
 
 /* Loading animation */

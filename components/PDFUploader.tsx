@@ -335,7 +335,7 @@ export default function PDFUploader() {
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2 text-blue-500">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
                 </svg>
-                尾部图片设置
+                添加底部图片
               </h3>
               
               <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
@@ -458,7 +458,7 @@ export default function PDFUploader() {
             </h3>
             
             {previewUrl ? (
-              <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 md:h-[400px] overflow-y-auto">
+              <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 md:h-[528px] overflow-y-auto">
                 <img 
                   src={previewUrl} 
                   alt="转换后的长图预览" 
