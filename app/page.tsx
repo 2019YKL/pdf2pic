@@ -57,7 +57,7 @@ export default function Home() {
           <div className="w-full max-w-7xl animate-fadeIn">
             <div className="mb-8 text-center">
               <h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-2">
-                <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">PDF2PIC</span>
+                <span className="text-blue-600">PDF2PIC</span>
               </h1>
               <p className="text-slate-600 text-lg max-w-2xl mx-auto">
                 简单高效的PDF转长图工具，支持多页PDF拼接和自定义尾部图片

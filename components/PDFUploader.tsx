@@ -246,7 +246,7 @@ export default function PDFUploader() {
         />
         <label 
           htmlFor="pdf-upload" 
-          className="cursor-pointer rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 transition-all"
+          className="cursor-pointer rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition-all"
         >
           选择文件
         </label>
@@ -269,7 +269,7 @@ export default function PDFUploader() {
             <p className="text-emerald-700 text-sm">已加载缓存的尾部图片 {tailFile && `(${tailFile.name.length > 20 ? tailFile.name.substring(0, 20) + '...' : tailFile.name})`}</p>
             <button 
               onClick={clearCachedTail}
-              className="rounded bg-blue-500 px-3 py-1 text-xs text-white hover:bg-blue-600 transition-all shadow-sm"
+              className="rounded bg-blue-600 px-3 py-1 text-xs text-white hover:bg-blue-700 transition-all shadow-sm"
             >
               清除
             </button>
@@ -299,7 +299,7 @@ export default function PDFUploader() {
       <button
         onClick={handleConvert}
         disabled={!pdfFile || converting}
-        className="w-full rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-3 font-medium text-white hover:from-blue-600 hover:to-blue-700 disabled:from-slate-300 disabled:to-slate-300 disabled:text-slate-500 shadow-sm hover:shadow transition-all"
+        className="w-full rounded-lg bg-blue-600 px-4 py-3 font-medium text-white hover:bg-blue-700 disabled:bg-slate-300 disabled:text-slate-500 shadow-sm hover:shadow transition-all"
       >
         {converting ? (
           <div className="flex items-center justify-center">
@@ -371,7 +371,7 @@ export default function PDFUploader() {
           <div className="mt-4">
             <button
               onClick={handleDownload}
-              className="w-full rounded-lg bg-gradient-to-r from-emerald-500 to-emerald-600 px-4 py-3 font-medium text-white hover:from-emerald-600 hover:to-emerald-700 shadow-sm hover:shadow transition-all flex items-center justify-center"
+              className="w-full rounded-lg bg-emerald-600 px-4 py-3 font-medium text-white hover:bg-emerald-700 shadow-sm hover:shadow transition-all flex items-center justify-center"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />

@@ -41,7 +41,7 @@ export default function Login({ onLogin }: LoginProps) {
     <div className="flex min-h-[80vh] w-full max-w-md flex-col items-center justify-center p-6">
       <div className="w-full rounded-xl bg-white/80 backdrop-blur-sm p-8 shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.16)]">
         <div className="flex items-center justify-center mb-8">
-          <div className="bg-gradient-to-r from-blue-600 to-emerald-600 p-3 rounded-full shadow-md">
+          <div className="bg-blue-600 p-3 rounded-full shadow-md">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
               <polyline points="14 2 14 8 20 8"></polyline>
@@ -52,7 +52,7 @@ export default function Login({ onLogin }: LoginProps) {
           </div>
         </div>
         
-        <h2 className="mb-6 text-center text-2xl font-bold bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">PDF2PIC</h2>
+        <h2 className="mb-6 text-center text-2xl font-bold text-blue-600">PDF2PIC</h2>
         <p className="mb-8 text-center text-slate-600">请输入访问密码继续使用</p>
         
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -96,7 +96,7 @@ export default function Login({ onLogin }: LoginProps) {
           <button
             type="submit"
             disabled={isLoading}
-            className="group relative w-full flex justify-center py-3 px-4 border border-transparent rounded-lg text-white bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md transition-all hover:shadow-lg disabled:opacity-70"
+            className="group relative w-full flex justify-center py-3 px-4 border border-transparent rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md transition-all hover:shadow-lg disabled:opacity-70"
           >
             {isLoading ? (
               <div className="flex items-center">

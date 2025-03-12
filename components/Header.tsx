@@ -26,7 +26,7 @@ export default function Header() {
             </div>
           </div>
           <div className="flex items-center">
-            <div className="bg-gradient-to-r from-blue-600 to-emerald-500 text-white text-xs font-medium rounded-full px-3 py-1">
+            <div className="bg-blue-600 text-white text-xs font-medium rounded-full px-3 py-1">
               PDF转长图工具
             </div>
           </div>

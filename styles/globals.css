@@ -42,25 +42,19 @@
   
   /* System colors */
   --foreground-rgb: var(--slate-800);
-  --background-start-rgb: var(--slate-50);
-  --background-end-rgb: 255, 255, 255;
+  --background-rgb: var(--slate-50);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: var(--slate-100);
-    --background-start-rgb: var(--slate-950);
-    --background-end-rgb: var(--slate-900);
+    --background-rgb: var(--slate-950);
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-    to bottom,
-    rgb(var(--background-start-rgb)),
-    rgb(var(--background-end-rgb))
-  );
+  background: rgb(var(--background-rgb));
   min-height: 100vh;
 }
 
