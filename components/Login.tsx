@@ -41,7 +41,7 @@ export default function Login({ onLogin }: LoginProps) {
     <div className="flex min-h-[80vh] w-full max-w-md flex-col items-center justify-center p-6">
       <div className="w-full rounded-xl bg-white/80 backdrop-blur-sm p-8 shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.16)]">
         <div className="flex items-center justify-center mb-8">
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-3 rounded-full shadow-md">
+          <div className="bg-gradient-to-r from-blue-600 to-emerald-600 p-3 rounded-full shadow-md">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
               <polyline points="14 2 14 8 20 8"></polyline>
@@ -52,8 +52,8 @@ export default function Login({ onLogin }: LoginProps) {
           </div>
         </div>
         
-        <h2 className="mb-6 text-center text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">PDF2PIC</h2>
-        <p className="mb-8 text-center text-gray-600">请输入访问密码继续使用</p>
+        <h2 className="mb-6 text-center text-2xl font-bold bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">PDF2PIC</h2>
+        <p className="mb-8 text-center text-slate-600">请输入访问密码继续使用</p>
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
@@ -63,17 +63,17 @@ export default function Login({ onLogin }: LoginProps) {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="peer w-full rounded-lg border border-gray-300 bg-white/50 px-4 py-3 pl-10 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all"
+                className="peer w-full rounded-lg border border-slate-300 bg-white/50 px-4 py-3 pl-10 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all"
                 placeholder=" "
                 required
               />
               <label 
                 htmlFor="password" 
-                className="absolute left-10 top-3 z-10 origin-[0] -translate-y-6 scale-75 transform text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600"
+                className="absolute left-10 top-3 z-10 origin-[0] -translate-y-6 scale-75 transform text-slate-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600"
               >
                 访问密码
               </label>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-3 top-3.5 text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-3 top-3.5 text-slate-400">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
               </svg>
@@ -96,7 +96,7 @@ export default function Login({ onLogin }: LoginProps) {
           <button
             type="submit"
             disabled={isLoading}
-            className="group relative w-full flex justify-center py-3 px-4 border border-transparent rounded-lg text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md transition-all hover:shadow-lg disabled:opacity-70"
+            className="group relative w-full flex justify-center py-3 px-4 border border-transparent rounded-lg text-white bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md transition-all hover:shadow-lg disabled:opacity-70"
           >
             {isLoading ? (
               <div className="flex items-center">

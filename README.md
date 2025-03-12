@@ -113,3 +113,6 @@ pdf2pic/
 3. 自动开始转PDF
 4. 可选择添加尾部图片（Png 横图），前端 UI 有功能组件
 5. 生成长图等待用户下载
+
+## 配色方案
+主要使用 TailwindCSS 里面的slate，blue，emerald

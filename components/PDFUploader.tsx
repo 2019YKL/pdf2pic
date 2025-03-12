@@ -231,7 +231,7 @@ export default function PDFUploader() {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        className="mb-4 flex min-h-40 flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 p-6 transition-colors hover:border-gray-400"
+        className="mb-4 flex min-h-40 flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 p-6 transition-colors hover:border-blue-400"
       >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-blue-500 mb-2">
           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12l-3-3m0 0l-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
@@ -251,13 +251,13 @@ export default function PDFUploader() {
           选择文件
         </label>
         {pdfFile && (
-          <p className="mt-2 text-green-600 text-sm text-center">
+          <p className="mt-2 text-emerald-600 text-sm text-center">
             已选择: {pdfFile.name} <br />({(pdfFile.size / 1024 / 1024).toFixed(2)}MB)
           </p>
         )}
       </div>
 
-      <div className="mb-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
+      <div className="mb-6 bg-slate-50 p-4 rounded-lg border border-slate-100">
         <h3 className="mb-4 text-lg font-medium flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2 text-blue-500">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
@@ -265,11 +265,11 @@ export default function PDFUploader() {
           尾部图片设置
         </h3>
         {hasCachedTail ? (
-          <div className="flex items-center justify-between bg-green-50 p-3 rounded-lg border border-green-100">
-            <p className="text-green-700 text-sm">已加载缓存的尾部图片 {tailFile && `(${tailFile.name.length > 20 ? tailFile.name.substring(0, 20) + '...' : tailFile.name})`}</p>
+          <div className="flex items-center justify-between bg-emerald-50 p-3 rounded-lg border border-emerald-100">
+            <p className="text-emerald-700 text-sm">已加载缓存的尾部图片 {tailFile && `(${tailFile.name.length > 20 ? tailFile.name.substring(0, 20) + '...' : tailFile.name})`}</p>
             <button 
               onClick={clearCachedTail}
-              className="rounded bg-red-500 px-3 py-1 text-xs text-white hover:bg-red-600 transition-all shadow-sm"
+              className="rounded bg-blue-500 px-3 py-1 text-xs text-white hover:bg-blue-600 transition-all shadow-sm"
             >
               清除
             </button>
@@ -285,7 +285,7 @@ export default function PDFUploader() {
             />
             <label 
               htmlFor="tail-upload" 
-              className="flex items-center cursor-pointer rounded-lg bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300 transition-all"
+              className="flex items-center cursor-pointer rounded-lg bg-slate-200 px-4 py-2 text-slate-700 hover:bg-slate-300 transition-all"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mr-2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -299,7 +299,7 @@ export default function PDFUploader() {
       <button
         onClick={handleConvert}
         disabled={!pdfFile || converting}
-        className="w-full rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-3 font-medium text-white hover:from-blue-600 hover:to-blue-700 disabled:from-gray-300 disabled:to-gray-300 disabled:text-gray-500 shadow-sm hover:shadow transition-all"
+        className="w-full rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-3 font-medium text-white hover:from-blue-600 hover:to-blue-700 disabled:from-slate-300 disabled:to-slate-300 disabled:text-slate-500 shadow-sm hover:shadow transition-all"
       >
         {converting ? (
           <div className="flex items-center justify-center">
@@ -318,13 +318,13 @@ export default function PDFUploader() {
 
       {converting && (
         <div className="mb-4">
-          <div className="mb-2 h-2 w-full overflow-hidden rounded-full bg-gray-200">
+          <div className="mb-2 h-2 w-full overflow-hidden rounded-full bg-slate-200">
             <div 
               className="h-full rounded-full bg-blue-500 transition-all duration-300" 
               style={{ width: `${progress}%` }}
             ></div>
           </div>
-          <p className="text-center text-xs text-gray-500">{progress}%</p>
+          <p className="text-center text-xs text-slate-500">{progress}%</p>
         </div>
       )}
 
@@ -350,7 +350,7 @@ export default function PDFUploader() {
 
   // 右侧区域 - 预览和下载
   const PreviewPanel = () => (
-    <div className="w-full md:border-l border-gray-100 md:pl-6 mt-8 md:mt-0">
+    <div className="w-full md:border-l border-slate-100 md:pl-6 mt-8 md:mt-0">
       <h3 className="mb-4 text-lg font-medium flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2 text-blue-500">
           <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
@@ -360,7 +360,7 @@ export default function PDFUploader() {
       
       {previewUrl ? (
         <div>
-          <div className="bg-gray-50 border border-gray-100 rounded-lg p-2 md:h-[400px] overflow-y-auto">
+          <div className="bg-slate-50 border border-slate-100 rounded-lg p-2 md:h-[400px] overflow-y-auto">
             <img 
               src={previewUrl} 
               alt="转换后的长图预览" 
@@ -371,7 +371,7 @@ export default function PDFUploader() {
           <div className="mt-4">
             <button
               onClick={handleDownload}
-              className="w-full rounded-lg bg-gradient-to-r from-green-500 to-green-600 px-4 py-3 font-medium text-white hover:from-green-600 hover:to-green-700 shadow-sm hover:shadow transition-all flex items-center justify-center"
+              className="w-full rounded-lg bg-gradient-to-r from-emerald-500 to-emerald-600 px-4 py-3 font-medium text-white hover:from-emerald-600 hover:to-emerald-700 shadow-sm hover:shadow transition-all flex items-center justify-center"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -381,9 +381,9 @@ export default function PDFUploader() {
           </div>
         </div>
       ) : (
-        <div className="h-64 flex items-center justify-center bg-gray-50 border border-gray-100 rounded-lg">
-          <div className="text-center text-gray-500">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 mx-auto mb-2 text-gray-300">
+        <div className="h-64 flex items-center justify-center bg-slate-50 border border-slate-100 rounded-lg">
+          <div className="text-center text-slate-500">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 mx-auto mb-2 text-slate-300">
               <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
             </svg>
             <p>转换完成后将在此处显示预览</p>
