@@ -22,7 +22,7 @@ export default function PDFUploader() {
       if (cachedTailData) {
         try {
           const dataBlob = dataURItoBlob(cachedTailData);
-          const file = new File([dataBlob], 'cached-tail.pdf', { type: 'application/pdf' });
+          const file = new File([dataBlob], 'cached-tail.png', { type: 'image/png' });
           setTailFile(file);
           setHasCachedTail(true);
           console.log('已加载缓存的尾部图片');
@@ -115,9 +115,9 @@ export default function PDFUploader() {
   const handleTailFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files.length > 0) {
-      if (files[0].type === 'application/pdf') {
+      if (files[0].type === 'image/png') {
         setTailFile(files[0]);
-        console.log(`已选择尾部PDF文件: ${files[0].name}, 大小: ${(files[0].size / 1024 / 1024).toFixed(2)}MB`);
+        console.log(`已选择尾部PNG文件: ${files[0].name}, 大小: ${(files[0].size / 1024 / 1024).toFixed(2)}MB`);
         
         // 缓存尾部文件
         const reader = new FileReader();
@@ -141,9 +141,9 @@ export default function PDFUploader() {
         };
         reader.readAsDataURL(files[0]);
       } else {
-        setError('请上传PDF格式的尾部图片');
-        setErrorDetails(`尾部文件类型错误: ${files[0].type}，请上传PDF文件`);
-        console.error(`尾部文件类型错误: ${files[0].type}，请上传PDF文件`);
+        setError('请上传PNG格式的尾部图片');
+        setErrorDetails(`尾部文件类型错误: ${files[0].type}，请上传PNG文件`);
+        console.error(`尾部文件类型错误: ${files[0].type}，请上传PNG文件`);
       }
     }
   };
@@ -278,7 +278,7 @@ export default function PDFUploader() {
           <div className="flex items-center justify-center">
             <input 
               type="file" 
-              accept="application/pdf" 
+              accept="image/png" 
               onChange={handleTailFileChange}
               className="hidden" 
               id="tail-upload" 
@@ -290,7 +290,7 @@ export default function PDFUploader() {
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mr-2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
-              选择尾部图片 (PDF)
+              选择尾部图片 (PNG)
             </label>
           </div>
         )}
