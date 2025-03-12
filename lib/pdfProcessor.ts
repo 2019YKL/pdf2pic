@@ -56,12 +56,21 @@ export async function loadPDF(file: File): Promise<PDFDocumentProxy> {
  */
 export async function renderPage(
   page: PDFPageProxy, 
-  scale: number = 1.5
+  scale: number = 1.5,
+  targetWidth?: number
 ): Promise<HTMLCanvasElement> {
   console.log(`开始渲染页面 ${page.pageNumber}, 缩放比例: ${scale}`);
   
   try {
-    const viewport = page.getViewport({ scale });
+    // 如果提供了目标宽度，计算适当的缩放比例
+    let finalScale = scale;
+    if (targetWidth) {
+      const originalViewport = page.getViewport({ scale: 1.0 });
+      finalScale = targetWidth / originalViewport.width;
+      console.log(`基于目标宽度 ${targetWidth}px 计算出缩放比例: ${finalScale}`);
+    }
+    
+    const viewport = page.getViewport({ scale: finalScale });
     console.log(`页面 ${page.pageNumber} 视口大小: ${viewport.width}x${viewport.height}`);
     
     const canvas = document.createElement('canvas');
@@ -95,6 +104,7 @@ export async function renderPage(
  */
 export async function renderPDF(
   pdf: PDFDocumentProxy, 
+  targetWidth?: number,
   progressCallback?: (progress: number) => void
 ): Promise<HTMLCanvasElement[]> {
   const numPages = Math.min(pdf.numPages, MAX_PAGES);
@@ -108,7 +118,7 @@ export async function renderPDF(
       const page = await pdf.getPage(i);
       
       console.log(`渲染页面 ${i}/${numPages}...`);
-      const canvas = await renderPage(page);
+      const canvas = await renderPage(page, 1.5, targetWidth);
       canvases.push(canvas);
       
       if (progressCallback) {
@@ -194,9 +204,24 @@ export async function createLongImage(
     console.log('渲染主PDF文件...');
     let mainCanvases: HTMLCanvasElement[] = [];
     let tailCanvases: HTMLCanvasElement[] = [];
-    let pdfMaxWidth = 0;
+    let targetWidth = 0;
     
-    mainCanvases = await renderPDF(pdf, (progress) => {
+    // 如果有尾部图片，先加载它来确定目标宽度
+    if (tailFile) {
+      try {
+        if (tailFile.type === 'image/png') {
+          console.log('先加载尾部PNG图片以确定目标宽度...');
+          const tailCanvas = await loadPngToCanvas(tailFile);
+          console.log(`尾部图片原始尺寸: ${tailCanvas.width}x${tailCanvas.height}`);
+          targetWidth = tailCanvas.width;
+        }
+      } catch (error) {
+        console.error('处理尾部图片时出错:', error);
+      }
+    }
+    
+    // 渲染PDF，使用尾部图片宽度作为目标宽度
+    mainCanvases = await renderPDF(pdf, targetWidth, (progress) => {
       if (progressCallback) {
         const adjustedProgress = tailFile ? progress * 0.8 : progress;
         progressCallback(adjustedProgress);
@@ -204,17 +229,17 @@ export async function createLongImage(
     });
     
     // 计算PDF页面的最大宽度
+    let pdfMaxWidth = 0;
     for (const canvas of mainCanvases) {
       pdfMaxWidth = Math.max(pdfMaxWidth, canvas.width);
     }
     console.log(`PDF最大宽度: ${pdfMaxWidth}px`);
     
-    // 如果有尾部图片，加载并渲染它
+    // 如果有尾部图片，确保它与PDF宽度对齐
     if (tailFile) {
       try {
         if (tailFile.type === 'image/png') {
-          console.log('加载尾部PNG图片...');
-          // 使用PDF的最大宽度作为目标宽度，确保尾部图片宽度与PDF一致
+          console.log('调整尾部PNG图片以匹配PDF宽度...');
           const tailCanvas = await loadPngToCanvas(tailFile, pdfMaxWidth);
           console.log(`添加尾部PNG图片，调整后尺寸: ${tailCanvas.width}x${tailCanvas.height}`);
           tailCanvases.push(tailCanvas);
