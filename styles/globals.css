@@ -1,18 +1,79 @@
 @import "tailwindcss";
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
+  --foreground-rgb: 30, 41, 59;
+  --background-start-rgb: 240, 245, 255;
+  --background-end-rgb: 255, 255, 255;
+  --primary-color: 59, 130, 246;
+  --primary-hover: 37, 99, 235;
+  --secondary-color: 14, 165, 233;
+  --accent-color: 139, 92, 246;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-rgb: 0, 0, 0;
+    --foreground-rgb: 241, 245, 249;
+    --background-start-rgb: 15, 23, 42;
+    --background-end-rgb: 30, 41, 59;
+    --primary-color: 59, 130, 246;
+    --primary-hover: 96, 165, 250;
+    --secondary-color: 56, 189, 248;
+    --accent-color: 167, 139, 250;
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  min-height: 100vh;
+}
+
+/* Smooth transitions for most interactive elements */
+button, a, input, select, textarea, label {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--primary-color), 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--primary-color), 0.7);
+}
+
+/* Loading animation */
+.loading-spinner {
+  border: 3px solid rgba(var(--foreground-rgb), 0.1);
+  border-radius: 50%;
+  border-top: 3px solid rgb(var(--primary-color));
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Improve focus states */
+*:focus-visible {
+  outline: 2px solid rgb(var(--primary-color));
+  outline-offset: 2px;
 }

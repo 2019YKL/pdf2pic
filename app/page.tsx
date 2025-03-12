@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Login from '@/components/Login';
 import PDFUploader from '@/components/PDFUploader';
+import Header from '@/components/Header';
 import { AuthProvider } from '@/contexts/AuthContext';
 
 export default function Home() {
@@ -38,20 +39,38 @@ export default function Home() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <span className="loading-indicator">加载中...</span>
+        <div className="flex flex-col items-center text-center">
+          <div className="loading-spinner mb-4"></div>
+          <p className="text-gray-600">加载中，请稍候...</p>
+        </div>
       </div>
     );
   }
 
   return (
     <AuthProvider>
-      <main className="flex min-h-screen flex-col items-center justify-between p-4">
+      {isAuthenticated && <Header />}
+      <main className="flex min-h-screen flex-col items-center py-8 px-4 sm:px-6 lg:px-8">
         {!isAuthenticated ? (
           <Login onLogin={handleLogin} />
         ) : (
-          <div className="w-full max-w-5xl">
-            <h1 className="mb-6 text-center text-3xl font-bold">PDF2PIC - PDF转长图工具</h1>
-            <PDFUploader />
+          <div className="w-full max-w-7xl animate-fadeIn">
+            <div className="mb-8 text-center">
+              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-2">
+                <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">PDF2PIC</span>
+              </h1>
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                简单高效的PDF转长图工具，支持多页PDF拼接和自定义尾部图片
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-6">
+              <PDFUploader />
+            </div>
+
+            <footer className="mt-12 text-center text-gray-500 text-sm">
+              <p> {new Date().getFullYear()} PDF2PIC - PDF转长图工具</p>
+            </footer>
           </div>
         )}
       </main>
