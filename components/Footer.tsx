@@ -71,16 +71,16 @@ const navigation = [
 export default function Footer() {
   return (
     <footer className="bg-gray-50 w-full mt-auto">
-      <div className="mx-auto max-w-7xl p-4 md:flex md:items-center md:justify-between lg:p-6">
-        <div className="flex justify-center gap-4 md:order-2">
+      <div className="mx-auto max-w-7xl [padding:1rem] md:flex md:items-center md:justify-between lg:[padding:1.5rem]">
+        <div className="flex justify-center [gap:1rem] md:order-2">
           {navigation.map((item) => (
             <a key={item.name} href={item.href} className="text-gray-600 hover:text-gray-800">
               <span className="sr-only">{item.name}</span>
-              <item.icon aria-hidden="true" className="w-6 h-6" />
+              <item.icon aria-hidden="true" className="[width:1.5rem] [height:1.5rem]" />
             </a>
           ))}
         </div>
-        <p className="mt-8 text-center text-sm text-gray-600 md:order-1 md:mt-0">
+        <p className="[margin-top:2rem] text-center text-sm text-gray-600 md:order-1 md:[margin-top:0]">
           &copy; 2025 PDF2PIC - PDF转长图工具
         </p>
       </div>

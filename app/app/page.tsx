@@ -50,7 +50,21 @@ export default function AppPage() {
   return (
     <AuthProvider>
       {isAuthenticated && <Header />}
-      <main className="flex min-h-screen flex-col items-center [padding-block:2rem] [padding-inline:1rem] sm:[padding-inline:1.5rem] lg:[padding-inline:2rem] bg-slate-50">
+      <main className="relative isolate flex min-h-screen flex-col items-center [padding-block:2rem] [padding-inline:1rem] sm:[padding-inline:1.5rem] lg:[padding-inline:2rem]">
+        {/* 顶部背景元素 */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 [top:-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:[top:-20rem]"
+        >
+          <div
+            style={{
+              clipPath:
+                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+            }}
+            className="relative left-[calc(50%-11rem)] aspect-[1155/678] [width:36.125rem] [transform:translateX(-50%)] rotate-[30deg] [background:linear-gradient(to_right_top,#ff80b5,#9089fc)] opacity-30 sm:left-[calc(50%-30rem)] sm:[width:72.1875rem]"
+          />
+        </div>
+        
         {!isAuthenticated ? (
           <Login onLogin={handleLogin} />
         ) : (
@@ -73,6 +87,20 @@ export default function AppPage() {
             </footer>
           </div>
         )}
+        
+        {/* 底部背景元素 */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+        >
+          <div
+            style={{
+              clipPath:
+                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+            }}
+            className="relative left-[calc(50%+3rem)] aspect-[1155/678] [width:36.125rem] [transform:translateX(-50%)] [background:linear-gradient(to_right_top,#ff80b5,#9089fc)] opacity-30 sm:left-[calc(50%+36rem)] sm:[width:72.1875rem]"
+          />
+        </div>
       </main>
     </AuthProvider>
   );

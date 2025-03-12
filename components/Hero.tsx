@@ -120,8 +120,9 @@ export default function Hero() {
                 PDF转长图 <span className="text-blue-600">一步搞定</span>
               </h1>
               <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl">
-                PDF2PIC提供简单高效的PDF转长图工具，支持多页PDF拼接和自定义尾部图片，让您的文档分享更加便捷。
-              </p>
+  PDF2PIC提供简单高效的PDF转长图工具，<br/>
+  <span className="inline-block [margin-top:10px]">支持多页PDF拼接和自定义尾部图片，让您的文档分享更加便捷。</span>
+</p>
               <div className="mt-10 flex items-center justify-center [gap:1.5rem]">
                 <a
                   href="/app"
