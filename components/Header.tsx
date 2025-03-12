@@ -33,7 +33,7 @@ export default function Header() {
         </div>
         <div className="hidden lg:[display:flex] lg:[flex:1] lg:justify-end">
           <Link href="/app" className="text-sm font-semibold [line-height:1.5rem] text-gray-900">
-            应用 <span aria-hidden="true">&rarr;</span>
+            回到首页 <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
       </nav>
