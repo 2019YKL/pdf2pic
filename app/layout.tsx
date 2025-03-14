@@ -22,6 +22,7 @@ export default function RootLayout({
         <title>PDF2PIC - PDF转长图工具</title>
         <meta name="description" content="一个简单易用的PDF转长图小工具" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/pdf.svg" type="image/svg+xml" />
       </head>
       <body style={{ 
         height: '100%', 
