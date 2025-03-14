@@ -12,6 +12,8 @@ export default function PDFUploader() {
   const [error, setError] = useState<string | null>(null);
   const [errorDetails, setErrorDetails] = useState<string | null>(null);
   const [hasCachedTail, setHasCachedTail] = useState(false);
+  const [pageLimit, setPageLimit] = useState<number>(30); // 默认页数限制为30页
+  const [totalPages, setTotalPages] = useState<number | null>(null); // PDF文件总页数
   
   const dropzoneRef = useRef<HTMLDivElement>(null);
   const tailDropzoneRef = useRef<HTMLDivElement>(null);
@@ -87,6 +89,9 @@ export default function PDFUploader() {
         setError(null);
         setErrorDetails(null);
         console.log(`已通过拖放选择PDF文件: ${files[0].name}, 大小: ${(files[0].size / 1024 / 1024).toFixed(2)}MB`);
+        
+        // 读取PDF页数
+        readPdfPageCount(files[0]);
       } else {
         setError('请上传PDF文件');
         setErrorDetails(`文件类型错误: ${files[0].type}，请上传PDF文件`);
@@ -160,6 +165,9 @@ export default function PDFUploader() {
         setError(null);
         setErrorDetails(null);
         console.log(`已选择PDF文件: ${files[0].name}, 大小: ${(files[0].size / 1024 / 1024).toFixed(2)}MB`);
+        
+        // 读取PDF页数
+        readPdfPageCount(files[0]);
       } else {
         setError('请上传PDF文件');
         setErrorDetails(`文件类型错误: ${files[0].type}，请上传PDF文件`);
@@ -205,6 +213,31 @@ export default function PDFUploader() {
     }
   };
 
+  // 读取PDF页数
+  const readPdfPageCount = async (file: File) => {
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await (window as any).pdfjsLib.getDocument(arrayBuffer).promise;
+      setTotalPages(pdf.numPages);
+      console.log(`PDF页数: ${pdf.numPages}`);
+      
+      // 如果PDF页数小于当前设置的页数限制，则更新页数限制
+      if (pdf.numPages < pageLimit) {
+        setPageLimit(pdf.numPages);
+      }
+    } catch (error) {
+      console.error('读取PDF页数失败:', error);
+    }
+  };
+
+  // 处理页数限制变化
+  const handlePageLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value);
+    if (!isNaN(value) && value > 0 && (totalPages === null || value <= totalPages)) {
+      setPageLimit(value);
+    }
+  };
+
   // 清除缓存的尾部图片
   const clearCachedTail = () => {
     try {
@@ -247,7 +280,7 @@ export default function PDFUploader() {
       
       const result = await createLongImage(pdfFile, tailFile, (p) => {
         setProgress(Math.round(p * 100));
-      });
+      }, pageLimit);
       
       setPreviewUrl(result);
       console.log('PDF转换完成，已生成预览');
@@ -328,6 +361,66 @@ export default function PDFUploader() {
                 </div>
               </div>
             </div>
+            
+            {/* 页数限制设置区域 */}
+            {pdfFile && totalPages !== null && (
+              <div>
+                <h3 className="mb-4 text-lg font-medium flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2 text-blue-500">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m.75 12 3 3m0 0 3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                  </svg>
+                  页数设置
+                </h3>
+                
+                <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm text-slate-700">
+                        文件总页数: <span className="font-semibold">{totalPages}</span> 页
+                      </p>
+                      <p className="text-sm text-slate-700">
+                        当前将处理: <span className="font-semibold text-blue-600">{pageLimit}</span> 页
+                      </p>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <label htmlFor="pageLimit" className="text-sm text-slate-500">设置拼取页数:</label>
+                        <span className="text-sm text-blue-600">{pageLimit} 页</span>
+                      </div>
+                      <input
+                        type="range"
+                        id="pageLimit"
+                        min="1"
+                        max={totalPages}
+                        value={pageLimit}
+                        onChange={handlePageLimitChange}
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                      />
+                      <div className="flex justify-between text-xs text-slate-500">
+                        <span>1页</span>
+                        <span>{totalPages}页</span>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-2">
+                      <div className="flex items-center">
+                        <input
+                          type="number"
+                          id="pageLimitInput"
+                          min="1"
+                          max={totalPages}
+                          value={pageLimit}
+                          onChange={handlePageLimitChange}
+                          className="w-24 px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                        <span className="ml-2 text-sm text-slate-700">页</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
             
             {/* 尾部图片设置区域 */}
             <div>

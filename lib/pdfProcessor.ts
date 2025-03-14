@@ -40,10 +40,6 @@ export async function loadPDF(file: File): Promise<PDFDocumentProxy> {
     const pdf = await loadingTask.promise;
     console.log(`PDF 加载成功, 页数: ${pdf.numPages}`);
     
-    if (pdf.numPages > MAX_PAGES) {
-      console.warn(`PDF 页数(${pdf.numPages})超过限制(${MAX_PAGES}), 将只处理前 ${MAX_PAGES} 页`);
-    }
-    
     return pdf;
   } catch (error) {
     console.error('PDF 加载失败:', error);
@@ -105,10 +101,13 @@ export async function renderPage(
 export async function renderPDF(
   pdf: PDFDocumentProxy, 
   targetWidth?: number,
-  progressCallback?: (progress: number) => void
+  progressCallback?: (progress: number) => void,
+  pageLimit?: number
 ): Promise<HTMLCanvasElement[]> {
-  const numPages = Math.min(pdf.numPages, MAX_PAGES);
-  console.log(`开始渲染PDF, 总页数: ${numPages}`);
+  // 如果提供了自定义页数限制，使用它，否则使用默认的 MAX_PAGES
+  const effectivePageLimit = pageLimit || MAX_PAGES;
+  const numPages = Math.min(pdf.numPages, effectivePageLimit);
+  console.log(`开始渲染PDF, 总页数: ${pdf.numPages}, 将渲染: ${numPages} 页`);
   
   const canvases: HTMLCanvasElement[] = [];
   
@@ -179,7 +178,8 @@ const loadPngToCanvas = async (file: File, targetWidth?: number): Promise<HTMLCa
 export async function createLongImage(
   mainFile: File, 
   tailFile: File | null = null, 
-  progressCallback?: (progress: number) => void
+  progressCallback?: (progress: number) => void,
+  pageLimit?: number
 ): Promise<string> {
   console.log('开始创建长图...');
   console.log(`主文件: ${mainFile.name}, 大小: ${(mainFile.size / 1024 / 1024).toFixed(2)}MB`);
@@ -189,11 +189,15 @@ export async function createLongImage(
     console.log('没有尾部文件');
   }
   
+  if (pageLimit) {
+    console.log(`用户指定页数限制: ${pageLimit} 页`);
+  }
+  
   const fileSizeMB = mainFile.size / (1024 * 1024);
   
   // 检查文件大小
   if (fileSizeMB > MAX_FILE_SIZE_MB) {
-    console.warn(`文件大小(${fileSizeMB.toFixed(2)}MB)超过 ${MAX_FILE_SIZE_MB}MB，可能只会处理前 ${MAX_PAGES} 页`);
+    console.warn(`文件大小(${fileSizeMB.toFixed(2)}MB)超过 ${MAX_FILE_SIZE_MB}MB，可能只会处理前 ${pageLimit || MAX_PAGES} 页`);
   }
   
   try {
@@ -220,13 +224,13 @@ export async function createLongImage(
       }
     }
     
-    // 渲染PDF，使用尾部图片宽度作为目标宽度
+    // 渲染PDF，使用尾部图片宽度作为目标宽度，传递页数限制
     mainCanvases = await renderPDF(pdf, targetWidth, (progress) => {
       if (progressCallback) {
         const adjustedProgress = tailFile ? progress * 0.8 : progress;
         progressCallback(adjustedProgress);
       }
-    });
+    }, pageLimit);
     
     // 计算PDF页面的最大宽度
     let pdfMaxWidth = 0;
