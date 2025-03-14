@@ -2,37 +2,33 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Login from '@/components/Login';
 import PDFUploader from '@/components/PDFUploader';
 import Header from '@/components/Header';
 import { AuthProvider } from '@/contexts/AuthContext';
 
 export default function AppPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  // 默认设置为已认证状态，不需要密码验证
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
 
   useEffect(() => {
-    // 检查本地存储中的认证状态
+    // 自动将用户设置为已认证状态（已屏蔽密码验证功能）
     try {
-      const authStatus = localStorage.getItem('pdf2pic-auth');
-      if (authStatus === 'authenticated') {
-        setIsAuthenticated(true);
-      }
+      localStorage.setItem('pdf2pic-auth', 'authenticated');
     } catch (error) {
       console.error('无法访问localStorage:', error);
     }
     setLoading(false);
   }, []);
 
+  // 保留此函数以防其他组件仍需调用，但总是返回成功
   const handleLogin = (success: boolean) => {
-    if (success) {
-      try {
-        localStorage.setItem('pdf2pic-auth', 'authenticated');
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.error('无法访问localStorage:', error);
-      }
+    try {
+      localStorage.setItem('pdf2pic-auth', 'authenticated');
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.error('无法访问localStorage:', error);
     }
   };
 
@@ -49,7 +45,7 @@ export default function AppPage() {
 
   return (
     <AuthProvider>
-      {isAuthenticated && <Header />}
+      <Header />
       <main className="relative isolate flex min-h-screen flex-col items-center [padding-block:2rem] [padding-inline:1rem] sm:[padding-inline:1.5rem] lg:[padding-inline:2rem]">
         {/* 顶部背景元素 */}
         <div
@@ -65,28 +61,25 @@ export default function AppPage() {
           />
         </div>
         
-        {!isAuthenticated ? (
-          <Login onLogin={handleLogin} />
-        ) : (
-          <div className="w-full max-w-7xl animate-fadeIn">
-            <div className="mb-8 text-center">
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-2">
-                <span className="text-blue-600">PDF2PIC</span>
-              </h1>
-              <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-                简单高效的PDF转长图工具，支持多页PDF拼接和自定义尾部图片
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden p-6">
-              <PDFUploader />
-            </div>
-
-            <footer className="mt-12 text-center text-slate-500 text-sm">
-              <p>&copy; {new Date().getFullYear()} PDF2PIC - PDF转长图工具</p>
-            </footer>
+        {/* 移除了条件判断，直接显示 PDF 处理工具 */}
+        <div className="w-full max-w-7xl animate-fadeIn">
+          <div className="mb-8 text-center">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-2">
+              <span className="text-blue-600">PDF2PIC</span>
+            </h1>
+            <p className="text-slate-600 text-lg max-w-2xl mx-auto">
+              简单高效的PDF转长图工具，支持多页PDF拼接和自定义尾部图片
+            </p>
           </div>
-        )}
+
+          <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden p-6">
+            <PDFUploader />
+          </div>
+
+          <footer className="mt-12 text-center text-slate-500 text-sm">
+            <p>&copy; {new Date().getFullYear()} PDF2PIC - PDF转长图工具</p>
+          </footer>
+        </div>
         
         {/* 底部背景元素 */}
         <div
