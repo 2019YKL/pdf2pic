@@ -25,31 +25,35 @@ async function hashPassword(password: string): Promise<string> {
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true); // 默认为已认证状态，绕过密码验证
 
   useEffect(() => {
-    // 检查本地存储中的认证状态
+    // 自动将用户设置为已认证状态（已屏蔽密码验证功能）
     try {
-      const authStatus = localStorage.getItem('pdf2pic-auth');
-      if (authStatus === 'authenticated') {
-        setIsAuthenticated(true);
-      }
+      localStorage.setItem('pdf2pic-auth', 'authenticated');
     } catch (error) {
       console.error('无法访问localStorage:', error);
     }
   }, []);
 
   const login = async (password: string): Promise<boolean> => {
+    // 屏蔽密码验证功能，直接返回成功
     try {
-      // Hash the input password and compare with stored hash
-      const hashedPassword = await hashPassword(password);
+      // 注释掉原有的密码哈希验证逻辑
+      // const hashedPassword = await hashPassword(password);
       
-      if (hashedPassword === PASSWORD_HASH) {
-        localStorage.setItem('pdf2pic-auth', 'authenticated');
-        setIsAuthenticated(true);
-        return true;
-      }
-      return false;
+      // 始终返回认证成功（无需密码验证）
+      localStorage.setItem('pdf2pic-auth', 'authenticated');
+      setIsAuthenticated(true);
+      return true;
+      
+      // 原密码验证逻辑已被屏蔽
+      // if (hashedPassword === PASSWORD_HASH) {
+      //   localStorage.setItem('pdf2pic-auth', 'authenticated');
+      //   setIsAuthenticated(true);
+      //   return true;
+      // }
+      // return false;
     } catch (error) {
       console.error('密码验证错误:', error);
       return false;
